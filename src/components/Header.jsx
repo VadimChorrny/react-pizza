@@ -1,18 +1,20 @@
 import { Link } from 'react-router-dom';
+import Search from './Search';
 
 const Header = () => {
   return (
     <div className='header'>
       <div className='container'>
-        <div className='header__logo'>
-          <img width='38' src='./img/pizza-logo.svg' alt='Pizza logo' />
-          <div>
-            <h1>
-              <Link to='/'>REACT PIZZA</Link>
-            </h1>
-            <p>найсмачніша піца в всесвіті</p>
+        <Link to='/'>
+          <div className='header__logo'>
+            <img width='38' src='./img/pizza-logo.svg' alt='Pizza logo' />
+            <div>
+              <h1>REACT PIZZA</h1>
+              <p>найсмачніша піца в всесвіті</p>
+            </div>
           </div>
-        </div>
+        </Link>
+        <Search />
         <div className='header__cart'>
           <Link to='/cart' className='button button--cart'>
             <span>560 $</span>
