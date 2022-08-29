@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
-import NotFound from './NotFound';
+import Pagination from '../components/Pagination';
+import { SearchContext } from '../context/context';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
+  console.log('Home was render');
+
+  const { searchValue } = useContext(SearchContext);
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1); // first page
   const [sortType, setSortType] = useState({
     name: 'популярності',
     sortProperty: 'rating',
@@ -24,7 +30,7 @@ const Home = ({ searchValue }) => {
     const search = searchValue ? `search=${searchValue}` : '';
 
     fetch(
-      `https://6308922f46372013f580b035.mockapi.io/items?${category}${search}&sortBy=${sortBy}&order=${order}`,
+      `https://6308922f46372013f580b035.mockapi.io/items?page=${currentPage}&limit=4&${category}${search}&sortBy=${sortBy}&order=${order}`,
     )
       .then((res) => {
         return res.json();
@@ -35,16 +41,7 @@ const Home = ({ searchValue }) => {
       });
 
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, searchValue]);
-
-  // const pizzas = items ...// SEARCH BY ARRAY
-  //   .filter((obj) => {
-  //     if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
-  //       return true;
-  //     }
-  //     return false;
-  //   })
-  //   .map((res, idx) => <PizzaBlock {...res} key={idx} />);
+  }, [categoryId, sortType, searchValue, currentPage]);
 
   const pizzas = items.map((res, idx) => <PizzaBlock {...res} key={idx} />);
   const skeletons = [...new Array(6)].map((_, idx) => <Skeleton key={idx} />);
@@ -54,12 +51,13 @@ const Home = ({ searchValue }) => {
       <div className='content__top'>
         <Categories
           value={categoryId}
-          onClickCategory={(id) => setCategoryId(id)}
+          onClickCategory={(id) => setCategoryId(id)} // props drilling
         />
         <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
       <h2 className='content__title'>Всі піци</h2>
       <div className='content__items'>{isLoading ? skeletons : pizzas}</div>
+      <Pagination onChangePage={(number) => setCurrentPage(number)} />
     </div>
   );
 };
