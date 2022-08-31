@@ -1,11 +1,14 @@
-import { useContext } from 'react';
+import { memo } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { SearchContext } from '../context/context';
 import Search from './Search';
 
 const Header = () => {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
   console.log('Header was render');
+
+  const { items, totalPrice } = useSelector((state) => state.cartSlice);
+
+  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 
   return (
     <div className='header'>
@@ -14,7 +17,7 @@ const Header = () => {
           <div className='header__logo'>
             <img width='38' src='./img/pizza-logo.svg' alt='Pizza logo' />
             <div>
-              <h1>REACT PIZZA</h1>
+              <h1>MATSURI PIZZA</h1>
               <p>найсмачніша піца в всесвіті</p>
             </div>
           </div>
@@ -22,7 +25,7 @@ const Header = () => {
         <Search />
         <div className='header__cart'>
           <Link to='/cart' className='button button--cart'>
-            <span>560 $</span>
+            <span>{totalPrice}₴</span>
             <div className='button__delimiter'></div>
             <svg
               width='18'
@@ -53,7 +56,7 @@ const Header = () => {
                 strokeLinejoin='round'
               />
             </svg>
-            <span>3</span>
+            <span>{totalCount}</span>
           </Link>
         </div>
       </div>
@@ -61,4 +64,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);
