@@ -25,7 +25,7 @@ const Cart = () => {
           </h2>
           <div className='cart__clear'>
             <img src='img/trash.svg' alt='img' />
-            <span onClick={onClickClear}>Очистить корзину</span>
+            <span onClick={onClickClear}>Звільнити кошик</span>
           </div>
         </div>
         <div className='content__items'>
