@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import cartEmptySvg from '../assets/img/empty-cart.png';
 
 const CartEmpty = () => {
   return (
@@ -13,7 +14,7 @@ const CartEmpty = () => {
           <br />
           Для того, щоб замовити піцу вам потрібно перейти на головну сторінку.
         </p>
-        <img src='/img/empty-cart.png' alt='Empty cart' />
+        <img src={cartEmptySvg} alt='Empty cart' />
         <Link to='/' className='button button--black'>
           <span>Повернутись назад</span>
         </Link>

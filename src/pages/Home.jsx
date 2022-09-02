@@ -13,7 +13,7 @@ import {
 } from '../redux/slices/filterSlice';
 import { fetchPizzas, pizzaSelector } from '../redux/slices/pizzasSlice';
 import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { list } from '../components/Sort';
 
 const Home = () => {
@@ -53,10 +53,7 @@ const Home = () => {
         }),
       );
     } catch (error) {
-      // setIsLoading(false);
       console.error('Error while loading items: ' + error.message);
-    } finally {
-      // setIsLoading(false);
     }
   };
 
@@ -96,9 +93,11 @@ const Home = () => {
     }
   }, []);
 
-  useEffect(() => {}, []);
-
-  const pizzas = items.map((res, idx) => <PizzaBlock {...res} key={idx} />);
+  const pizzas = items.map((res, idx) => (
+    <Link to={`/pizza/${res.id}`}>
+      <PizzaBlock {...res} />
+    </Link>
+  ));
   const skeletons = [...new Array(6)].map((_, idx) => <Skeleton key={idx} />);
 
   return (

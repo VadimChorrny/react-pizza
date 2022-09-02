@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem, minusItem, removeItem } from '../redux/slices/cartSlice';
+import trashSvg from '../assets/img/trash.svg';
 
 const CartItem = ({ id, title, type, imageUrl, count, price }) => {
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const CartItem = ({ id, title, type, imageUrl, count, price }) => {
           onClick={onClickRemove}
           className='button button--outline button--circle'
         >
-          <img src='img/trash.svg' alt='img' />
+          <img src={trashSvg} alt='img' />
         </button>
       </div>
     </div>

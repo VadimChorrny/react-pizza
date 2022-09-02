@@ -13,7 +13,9 @@ export const fetchPizzas = createAsyncThunk(
       return thunkAPI.rejectWithValue('Pizzas is empty :(');
     }
 
-    return thunkAPI.fulfillWithValue(data);
+    console.log('thunkAPI', thunkAPI.fulfillWithValue(data));
+
+    return thunkAPI.fulfillWithValue(data); // here we retrn data
   },
 );
 
@@ -31,6 +33,7 @@ export const pizzasSlice = createSlice({
     },
   },
   extraReducers: {
+    // fetchPizzas
     [fetchPizzas.pending]: (state) => {
       state.status = 'loading';
       state.items = [];

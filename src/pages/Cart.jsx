@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import CartEmpty from '../components/CartEmpty';
 import CartItem from '../components/CartItem';
 import { cartSelector, clearItems } from '../redux/slices/cartSlice';
+import cartSvg from '../assets/img/cart.svg';
+import trashSvg from '../assets/img/trash.svg';
+import grayArrowLeftSvg from '../assets/img/grey-arrow-left.svg';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -20,11 +23,11 @@ const Cart = () => {
       <div className='cart'>
         <div className='cart__top'>
           <h2 className='content__title'>
-            <img src='img/cart.svg' alt='img' />
+            <img src={cartSvg} alt='img' />
             Корзина
           </h2>
           <div className='cart__clear'>
-            <img src='img/trash.svg' alt='img' />
+            <img src={trashSvg} alt='trash' />
             <span onClick={onClickClear}>Звільнити кошик</span>
           </div>
         </div>
@@ -49,7 +52,7 @@ const Cart = () => {
               to='/'
               className='button button--outline button--add go-back-btn'
             >
-              <img src='img/grey-arrow-left.svg' alt='img' />
+              <img src={grayArrowLeftSvg} alt='img' />
               <span>Повернутись назад</span>
             </Link>
             <div className='button pay-btn'>
