@@ -13,7 +13,7 @@ import {
 } from '../redux/slices/filterSlice';
 import { fetchPizzas, pizzaSelector } from '../redux/slices/pizzasSlice';
 import qs from 'qs';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { list } from '../components/Sort';
 
 const Home = () => {
@@ -93,11 +93,7 @@ const Home = () => {
     }
   }, []);
 
-  const pizzas = items.map((res, idx) => (
-    <Link to={`/pizza/${res.id}`}>
-      <PizzaBlock {...res} />
-    </Link>
-  ));
+  const pizzas = items.map((res, idx) => <PizzaBlock {...res} key={idx} />);
   const skeletons = [...new Array(6)].map((_, idx) => <Skeleton key={idx} />);
 
   return (
