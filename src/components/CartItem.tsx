@@ -3,7 +3,23 @@ import { useDispatch } from 'react-redux';
 import { addItem, minusItem, removeItem } from '../redux/slices/cartSlice';
 import trashSvg from '../assets/img/trash.svg';
 
-const CartItem = ({ id, title, type, imageUrl, count, price }) => {
+type CartProps = {
+  id: string;
+  title: string;
+  type: string;
+  imageUrl: string;
+  count: number;
+  price: number;
+};
+
+const CartItem: React.FC<CartProps> = ({
+  id,
+  title,
+  type,
+  imageUrl,
+  count,
+  price,
+}) => {
   const dispatch = useDispatch();
   const onClickPlus = () => {
     dispatch(

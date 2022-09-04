@@ -8,11 +8,16 @@ import cartSvg from '../assets/img/cart.svg';
 import trashSvg from '../assets/img/trash.svg';
 import grayArrowLeftSvg from '../assets/img/grey-arrow-left.svg';
 
-const Cart = () => {
+type ItemType = {};
+
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector(cartSelector);
 
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const totalCount = items.reduce(
+    (sum: number, item: any) => sum + item.count,
+    0,
+  );
 
   const onClickClear = () => {
     dispatch(clearItems());
@@ -32,7 +37,7 @@ const Cart = () => {
           </div>
         </div>
         <div className='content__items'>
-          {items.map((res, idx) => (
+          {items.map((res: any, idx: number) => (
             <CartItem {...res} key={idx} />
           ))}
         </div>

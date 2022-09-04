@@ -16,23 +16,29 @@ import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { list } from '../components/Sort';
 
-const Home = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const isSearch = useRef(false);
   const isMounted = useRef(false); // для перевірки першого рендеру
 
-  const categoryId = useSelector((state) => state.filterSlice.categoryId);
-  const sortType = useSelector((state) => state.filterSlice.sort.sortProperty);
-  const currentPage = useSelector((state) => state.filterSlice.currentPage);
-  const searchValue = useSelector((state) => state.filterSlice.searchValue);
+  const categoryId = useSelector((state: any) => state.filterSlice.categoryId);
+  const sortType = useSelector(
+    (state: any) => state.filterSlice.sort.sortProperty,
+  );
+  const currentPage = useSelector(
+    (state: any) => state.filterSlice.currentPage,
+  );
+  const searchValue = useSelector(
+    (state: any) => state.filterSlice.searchValue,
+  );
   const { items, status } = useSelector(pizzaSelector);
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
-  const onChangeCurrentPage = (id) => {
+  const onChangeCurrentPage = (id: number) => {
     dispatch(setCurrentPage(id));
   };
 
@@ -44,6 +50,7 @@ const Home = () => {
 
     try {
       dispatch(
+        // @ts-ignore
         fetchPizzas({
           category,
           sortBy,
@@ -93,7 +100,9 @@ const Home = () => {
     }
   }, []);
 
-  const pizzas = items.map((res, idx) => <PizzaBlock {...res} key={idx} />);
+  const pizzas = items.map((res: any, idx: number) => (
+    <PizzaBlock {...res} key={idx} />
+  ));
   const skeletons = [...new Array(6)].map((_, idx) => <Skeleton key={idx} />);
 
   return (
@@ -120,7 +129,7 @@ const Home = () => {
 
       <Pagination
         currentPage={currentPage}
-        onChangePage={(number) => onChangeCurrentPage(number)}
+        onChangePage={(number: number) => onChangeCurrentPage(number)}
       />
     </div>
   );
